@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Site</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #121212;
+            color: white;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .container {
+            margin-top: 50px;
+            padding: 20px;
+        }
+
+        .image-container img {
+            width: 300px;
+            border-radius: 15px;
+        }
+
+        .timer {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .message {
+            font-size: 24px;
+            margin-top: 20px;
+        }
+
+        .spotify-player {
+            margin-bottom: 15px;
+        }
+
+        /* Barra RGB animada */
+        .rgb-bar {
+            width: 50%;
+            height: 8px;
+            margin: 20px auto;
+            border-radius: 5px;
+            background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, purple, red);
+            background-size: 400% 100%;
+            animation: rgbMove 3s linear infinite;
+        }
+
+        @keyframes rgbMove {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        /* Emojis caindo */
+        .emoji {
+            position: absolute;
+            font-size: 30px;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-100vh); opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+
+        .spacer {
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="spotify-player">
+            <iframe style="border-radius:12px" 
+                src="" 
+                width="300" height="80" frameborder="0" 
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+            </iframe>
+        </div>
+         <p>For You❤</p>
+
+        <div class="image-container">
+            <img src="ana.jpg" alt="Foto">
+        </div>
+
+        <div class="timer" id="contador">
+            Calculando...
+        </div>
+
+        <!-- Barra RGB -->
+        <div class="rgb-bar"></div>
+
+        <p>Sempre estarei aqui ❤🥺</p>
+
+        <div class="spacer"></div>
+    </div>
+
+    <script>
+        function calcularTempo() {
+            let nascimento = new Date("2006-02-10T00:00:00");
+            let agora = new Date();
+            let diferenca = agora - nascimento;
+
+            let segundos = Math.floor(diferenca / 1000) % 60;
+            let minutos = Math.floor(diferenca / (1000 * 60)) % 60;
+            let horas = Math.floor(diferenca / (1000 * 60 * 60)) % 24;
+            let dias = Math.floor(diferenca / (1000 * 60 * 60 * 24));
+            let meses = Math.floor(dias / 30.44);
+            let anos = Math.floor(meses / 12);
+
+            meses = meses % 12;
+            document.getElementById("contador").innerHTML =
+                anos + " anos, " + meses + " meses, " + horas + " horas, " + minutos + " minutos e " + segundos + " segundos";
+        }
+
+        setInterval(calcularTempo, 1000);
+        calcularTempo();
+
+        function criarEmoji() {
+            const emoji = document.createElement("span");
+            emoji.innerText = "🥰";
+            emoji.classList.add("emoji");
+            emoji.style.left = Math.random() * 100 + "vw";
+            emoji.style.animationDuration = Math.random() * 3 + 2 + "s";
+            document.body.appendChild(emoji);
+
+            setTimeout(() => { emoji.remove(); }, 5000);
+        }
+
+        setInterval(criarEmoji, 500);
+    </script>
+
+</body>
+</html>
